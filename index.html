@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>XueXi — Mandarin Pro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Sans+SC:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <div class="logo-badge">学</div>
+        <div>
+          <div class="logo-text">XueXi Mandarin Pro</div>
+          <div class="logo-sub">Learn · Speak · Thrive</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="streak">🔥 <span id="streakCount">0</span> day streak</div>
+      </div>
+    </header>
+
+    <div class="nav-wrap">
+      <button class="tab-btn active" onclick="switchTab('phrasebook', this)">
+        📖 Phrasebook
+      </button>
+      <button class="tab-btn" onclick="switchTab('alphabet', this)">
+        🔤 Alphabet
+      </button>
+      <button class="tab-btn" onclick="switchTab('flashcards', this)">
+        🃏 Flashcards
+      </button>
+      <button class="tab-btn" onclick="switchTab('quiz', this)">✏️ Quiz</button>
+      <button class="tab-btn" onclick="switchTab('dialogue', this)">
+        💬 Dialogues
+      </button>
+      <button class="tab-btn" onclick="switchTab('numbers', this)">
+        🔢 Numbers
+      </button>
+    </div>
+
+    <main>
+      <div class="tab-pane active" id="tab-phrasebook">
+        <h2 class="section-heading">Phrasebook</h2>
+        <p class="section-sub">
+          Mga kapaki-pakinabang na parirala — i-click para marinig
+        </p>
+        <div class="phrase-cats" id="phraseCats"></div>
+        <div class="phrase-grid" id="phraseGrid"></div>
+      </div>
+
+      <div class="tab-pane" id="tab-alphabet">
+        <h2 class="section-heading">Pinyin Alphabet</h2>
+        <p class="section-sub">
+          Ang sistema ng romanization ng Mandarin — i-click para marinig ang
+          tunog
+        </p>
+        <div class="tone-guide">
+          <h6>📐 Tone Guide — Gabay sa Tono</h6>
+          <div class="tone-row">
+            <div class="tone-item">
+              <div class="tone-char">ā</div>
+              <div class="tone-desc">1st Tone — Flat, high level</div>
+            </div>
+            <div class="tone-item">
+              <div class="tone-char">á</div>
+              <div class="tone-desc">2nd Tone — Rising, like a question</div>
+            </div>
+            <div class="tone-item">
+              <div class="tone-char">ǎ</div>
+              <div class="tone-desc">
+                3rd Tone — Dip then rise (bumababa-pataas)
+              </div>
+            </div>
+            <div class="tone-item">
+              <div class="tone-char">à</div>
+              <div class="tone-desc">
+                4th Tone — Sharp falling (mabilis na pababa)
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="alpha-grid" id="alphaGrid"></div>
+      </div>
+
+      <div class="tab-pane" id="tab-flashcards">
+        <h2 class="section-heading">Flashcards</h2>
+        <p class="section-sub">
+          I-click ang card para ma-flip — ito ang paraan ng pag-memorize!
+        </p>
+        <div class="flashcard-wrap">
+          <div class="fc-progress-wrap">
+            <div
+              class="fc-progress-fill"
+              id="fcProgress"
+              style="width: 0%"
+            ></div>
+          </div>
+          <div class="fc-meta">
+            Card <span id="fcCurrent">1</span> of
+            <span id="fcTotal">20</span> &nbsp;|&nbsp; ✅
+            <span id="fcCorrect">0</span> correct
+          </div>
+          <div class="flashcard-scene" onclick="flipCard()">
+            <div class="flashcard-inner" id="fcInner">
+              <div class="card-face">
+                <div class="fc-hanzi" id="fcHanzi">你好</div>
+                <div class="fc-hint">Tap to reveal →</div>
+              </div>
+              <div class="card-back">
+                <div class="fc-pinyin" id="fcPinyin">Nǐ hǎo</div>
+                <div class="fc-eng" id="fcEng">Hello</div>
+                <div class="fc-tone" id="fcTone">Tones: 3rd + 3rd</div>
+              </div>
+            </div>
+          </div>
+          <div class="fc-controls">
+            <button class="fc-btn hard" onclick="fcRate('hard')">
+              😣 Hard
+            </button>
+            <button
+              class="fc-btn"
+              onclick="speak(document.getElementById('fcHanzi').innerText)"
+            >
+              🔊 Hear
+            </button>
+            <button class="fc-btn good" onclick="fcRate('good')">
+              😄 Got it!
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tab-quiz">
+        <h2 class="section-heading">Quiz</h2>
+        <p class="section-sub">
+          Subukan ang iyong kaalaman — alin ang tamang Ingles?
+        </p>
+        <div class="quiz-wrap" id="quizWrap"></div>
+      </div>
+
+      <div class="tab-pane" id="tab-dialogue">
+        <h2 class="section-heading">Dialogues</h2>
+        <p class="section-sub">
+          Pag-aralan ang mga tunay na pag-uusap sa Mandarin
+        </p>
+        <div class="dialogue-layout">
+          <div class="dialogue-menu" id="dlgMenu"></div>
+          <div class="dialogue-content" id="dlgContent">
+            <p style="color: var(--muted)">Pumili ng dialogue →</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane" id="tab-numbers">
+        <h2 class="section-heading">Numbers 数字</h2>
+        <p class="section-sub">Mga numero sa Mandarin — i-click para marinig</p>
+        <div class="numbers-grid" id="numsGrid"></div>
+      </div>
+    </main>
+
+    <div id="toast">🔊 Playing...</div>
+
+    <footer>
+      <div class="footer-title">Members</div>
+      <div class="members-grid">
+        <div class="member-tag">Antonio, Arnel Jr DC.</div>
+        <div class="member-tag">Crisostomo, Adrian S.</div>
+        <div class="member-tag">Tibon, Mark Angel S.</div>
+      </div>
+    </footer>
+
+    <script src="./function.js"></script>
+  </body>
+</html>
